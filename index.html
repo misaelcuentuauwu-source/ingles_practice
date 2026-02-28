@@ -24,48 +24,33 @@
 
     <div class="start-card">
       <h2>¡Practica tus 198 verbos! 💪</h2>
-      <p> wachen lo cree yo misa:3 y pues verás el verbo en <strong>español</strong>. Escribe las tres formas en inglés presionando <strong>Enter</strong> para avanzar entre campos.</p>
+      <p>Verás el verbo en <strong>español</strong>. Escribe las tres formas en inglés y presiona <strong>Enter</strong> para avanzar. Si te atascas, usa el botón <strong>💡 Pista</strong>.</p>
 
       <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-val">198</div>
-          <div class="stat-label">Verbos</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-val">3</div>
-          <div class="stat-label">Formas</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-val">∞</div>
-          <div class="stat-label">Intentos</div>
-        </div>
+        <div class="stat-item"><div class="stat-val">198</div><div class="stat-label">Verbos</div></div>
+        <div class="stat-item"><div class="stat-val">3</div><div class="stat-label">Formas</div></div>
+        <div class="stat-item"><div class="stat-val">∞</div><div class="stat-label">Intentos</div></div>
       </div>
 
       <div class="mode-section-label">Modo de práctica</div>
       <div class="mode-selector">
         <button class="mode-btn selected" data-mode="ordered" onclick="selectMode(this)">
-          📋 En orden
-          <span class="mode-label">Del #1 al #198</span>
+          📋 En orden<span class="mode-label">Del #1 al #198</span>
         </button>
         <button class="mode-btn" data-mode="all" onclick="selectMode(this)">
-          🎲 Aleatorio
-          <span class="mode-label">Todos mezclados</span>
+          🎲 Aleatorio<span class="mode-label">Todos mezclados</span>
         </button>
         <button class="mode-btn" data-mode="irregular" onclick="selectMode(this)">
-          ⚡ Solo irregulares
-          <span class="mode-label">Los más difíciles</span>
+          ⚡ Solo irregulares<span class="mode-label">Los más difíciles</span>
         </button>
         <button class="mode-btn" data-mode="regular" onclick="selectMode(this)">
-          ✅ Solo regulares
-          <span class="mode-label">Terminan en -ed</span>
+          ✅ Solo regulares<span class="mode-label">Terminan en -ed</span>
         </button>
         <button class="mode-btn" data-mode="custom25" onclick="selectMode(this)">
-          🎯 25 al azar
-          <span class="mode-label">Sesión rápida</span>
+          🎯 25 al azar<span class="mode-label">Sesión rápida</span>
         </button>
         <button class="mode-btn" data-mode="custom50" onclick="selectMode(this)">
-          🔥 50 al azar
-          <span class="mode-label">Sesión media</span>
+          🔥 50 al azar<span class="mode-label">Sesión media</span>
         </button>
       </div>
 
@@ -106,51 +91,75 @@
       </div>
     </div>
 
+    <!-- CARD -->
     <div class="card" id="mainCard">
-      <div class="verb-label">Traduce al inglés →</div>
+
+      <!-- top bar: label + hint button -->
+      <div class="card-top">
+        <div class="verb-label">Traduce al inglés →</div>
+        <button class="hint-btn" id="hintBtn" onclick="toggleHint()">💡 Pista</button>
+      </div>
+
+      <!-- HINT POPUP -->
+      <div class="hint-popup" id="hintPopup">
+        <button class="hint-popup-close" onclick="closeHint()" aria-label="Cerrar">✕</button>
+        <h4>💡 Pista del paso actual</h4>
+        <div class="hint-popup-body" id="hintPopupBody">—</div>
+        <div class="hint-reveal-row">
+          <button class="hint-reveal-btn" id="hintRevealBtn" onclick="revealAnswer()">👁 Ver respuesta</button>
+          <span class="hint-answer" id="hintAnswer"></span>
+        </div>
+      </div>
+
       <div class="verb-spanish" id="verbSpanish">—</div>
       <div class="verb-number" id="verbNumber">#001</div>
 
+      <!-- INPUTS -->
       <div class="inputs-area">
+        <!-- PRESENT -->
         <div class="input-row">
           <span class="input-tag active" id="tag0">Present</span>
-          <input class="verb-input" id="input0" type="text" placeholder="base form..." autocomplete="off" autocorrect="off" spellcheck="false"/>
+          <div class="input-col">
+            <input class="verb-input" id="input0" type="text" placeholder="base form..." autocomplete="off" autocorrect="off" spellcheck="false"/>
+            <div class="step-error" id="err0"></div>
+          </div>
           <span class="input-status" id="status0"></span>
         </div>
+        <!-- PAST -->
         <div class="input-row">
           <span class="input-tag" id="tag1">Past</span>
-          <input class="verb-input" id="input1" type="text" placeholder="past simple..." autocomplete="off" autocorrect="off" spellcheck="false" disabled/>
+          <div class="input-col">
+            <input class="verb-input" id="input1" type="text" placeholder="past simple..." autocomplete="off" autocorrect="off" spellcheck="false" disabled/>
+            <div class="step-error" id="err1"></div>
+          </div>
           <span class="input-status" id="status1"></span>
         </div>
+        <!-- PARTICIPLE -->
         <div class="input-row">
           <span class="input-tag" id="tag2">Participle</span>
-          <input class="verb-input" id="input2" type="text" placeholder="past participle..." autocomplete="off" autocorrect="off" spellcheck="false" disabled/>
+          <div class="input-col">
+            <input class="verb-input" id="input2" type="text" placeholder="past participle..." autocomplete="off" autocorrect="off" spellcheck="false" disabled/>
+            <div class="step-error" id="err2"></div>
+          </div>
           <span class="input-status" id="status2"></span>
         </div>
       </div>
 
+      <!-- FINAL HINT BOX (shown after all 3 answered) -->
       <div class="hint-box" id="hintBox">
         <div class="hint-title" id="hintTitle"></div>
         <div id="hintText"></div>
         <div class="correct-forms" id="correctForms"></div>
       </div>
-    </div>
+
+    </div><!-- /card -->
 
     <button class="btn btn-primary" id="nextBtn" onclick="nextVerb()" style="display:none">
       Siguiente verbo →
     </button>
-
-    <button class="btn btn-skip" onclick="skipVerb()">
-      Saltar este verbo
-    </button>
-
-    <button class="btn btn-home" onclick="confirmHome()">
-      🏠 Volver al inicio
-    </button>
-
-    <div class="keyboard-hint">
-      <kbd>Enter</kbd> para avanzar &nbsp;·&nbsp; <kbd>Shift+Enter</kbd> para saltar
-    </div>
+    <button class="btn btn-skip" onclick="skipVerb()">Saltar este verbo</button>
+    <button class="btn btn-home" onclick="confirmHome()">🏠 Volver al inicio</button>
+    <div class="keyboard-hint"><kbd>Enter</kbd> para avanzar &nbsp;·&nbsp; <kbd>Shift+Enter</kbd> para saltar</div>
   </div>
 
   <!-- ╔══════════════╗ -->
@@ -161,31 +170,18 @@
       <div class="header-badge">🏆 Resultados</div>
       <h1>¡Terminaste!</h1>
     </div>
-
     <div class="end-card">
       <div class="end-score-circle">
         <span class="big-num" id="finalPct">0%</span>
         <span class="small-label">Score</span>
       </div>
-
       <div class="end-grade" id="endGrade">—</div>
       <div class="end-message" id="endMessage">—</div>
-
       <div class="end-stats">
-        <div class="end-stat">
-          <div class="ev" style="color:var(--success)" id="endCorrect">0</div>
-          <div class="el">Correctas</div>
-        </div>
-        <div class="end-stat">
-          <div class="ev" style="color:var(--error)" id="endWrong">0</div>
-          <div class="el">Errores</div>
-        </div>
-        <div class="end-stat">
-          <div class="ev" style="color:var(--orange)" id="endStreak">0</div>
-          <div class="el">Mejor racha</div>
-        </div>
+        <div class="end-stat"><div class="ev" style="color:var(--success)" id="endCorrect">0</div><div class="el">Correctas</div></div>
+        <div class="end-stat"><div class="ev" style="color:var(--error)" id="endWrong">0</div><div class="el">Errores</div></div>
+        <div class="end-stat"><div class="ev" style="color:var(--orange)" id="endStreak">0</div><div class="el">Mejor racha</div></div>
       </div>
-
       <div class="end-btns">
         <button class="btn-end primary" onclick="restartSame()">🔄 Repetir sesión</button>
         <button class="btn-end orange" onclick="practiceWrong()">❌ Practicar errores</button>
@@ -198,216 +194,252 @@
 
 <script>
 // ═══════════════════════════════════════════════════════
-// VERB DATABASE — 198 verbos
+// VERB DATABASE
 // ═══════════════════════════════════════════════════════
 const ALL_VERBS = [
-  {n:1,  es:"ser / estar",              base:"be",           past:"was/were",      pp:"been",            ir:true,  tip:"Verbo irregular fundamental. Pasado: I/he/she/it → was | you/we/they → were."},
-  {n:2,  es:"tener / haber",            base:"have",         past:"had",           pp:"had",             ir:true,  tip:"'Had' sirve de past simple Y past participle. Ej: I had a dog / I have had lunch."},
-  {n:3,  es:"hacer",                    base:"do",           past:"did",           pp:"done",            ir:true,  tip:"'Do' también funciona como auxiliar: Did you see it? I didn't go."},
-  {n:4,  es:"decir",                    base:"say",          past:"said",          pp:"said",            ir:true,  tip:"'Said' se pronuncia 'sed'. Past y participle iguales."},
-  {n:5,  es:"ir",                       base:"go",           past:"went",          pp:"gone",            ir:true,  tip:"'Went' y 'gone' no se parecen a 'go'. Son las formas más irregulares del inglés."},
-  {n:6,  es:"obtener",                  base:"get",          past:"got",           pp:"gotten/got",      ir:true,  tip:"Americano: 'gotten'. Británico: 'got'. Ambas son correctas para el participle."},
-  {n:7,  es:"hacer (crear)",            base:"make",         past:"made",          pp:"made",            ir:true,  tip:"'Make' = crear/fabricar; 'do' = realizar una acción. Ej: make a cake / do homework."},
-  {n:8,  es:"saber / conocer",          base:"know",         past:"knew",          pp:"known",           ir:true,  tip:"Patrón: know→knew→known. Similar a: grow→grew→grown, blow→blew→blown."},
-  {n:9,  es:"pensar",                   base:"think",        past:"thought",       pp:"thought",         ir:true,  tip:"'Thought' rima con 'bought' y 'caught'. Patrón -ight/-ought muy común."},
-  {n:10, es:"tomar / llevar",           base:"take",         past:"took",          pp:"taken",           ir:true,  tip:"Patrón: take→took→taken. Similar a: shake→shook→shaken."},
-  {n:11, es:"ver",                      base:"see",          past:"saw",           pp:"seen",            ir:true,  tip:"'Saw' se pronuncia como la sierra de cortar madera. see→saw→seen."},
-  {n:12, es:"venir",                    base:"come",         past:"came",          pp:"come",            ir:true,  tip:"El participle 'come' es igual a la base. No confundas con 'became/become'."},
-  {n:13, es:"querer",                   base:"want",         past:"wanted",        pp:"wanted",          ir:false, tip:"Verbo regular: solo añade -ed. 'Want to' + infinitivo: I wanted to go."},
-  {n:14, es:"mirar",                    base:"look",         past:"looked",        pp:"looked",          ir:false, tip:"Regular. 'Look at' = mirar algo específico. 'Look for' = buscar."},
-  {n:15, es:"usar",                     base:"use",          past:"used",          pp:"used",            ir:false, tip:"Regular. Termina en -e, solo añade -d: use→used."},
-  {n:16, es:"encontrar",               base:"find",         past:"found",         pp:"found",           ir:true,  tip:"'Found' también es el pasado de 'found' (fundar). El contexto distingue el significado."},
-  {n:17, es:"dar",                      base:"give",         past:"gave",          pp:"given",           ir:true,  tip:"Patrón: give→gave→given. Similar a: drive→drove→driven, ride→rode→ridden."},
-  {n:18, es:"contar / decir",           base:"tell",         past:"told",          pp:"told",            ir:true,  tip:"'Tell' necesita objeto (tell me), 'say' no (say it). Ej: Tell me the truth / Say hello."},
-  {n:19, es:"trabajar / funcionar",     base:"work",         past:"worked",        pp:"worked",          ir:false, tip:"Regular. 'I work hard' (trabajo) / 'It works!' (¡Funciona!)"},
-  {n:20, es:"llamar",                   base:"call",         past:"called",        pp:"called",          ir:false, tip:"Regular. 'Call' = llamar por teléfono o llamar de cierta forma: They called me brave."},
-  {n:21, es:"intentar",                 base:"try",          past:"tried",         pp:"tried",           ir:false, tip:"Regular, pero y→i antes de -ed: try→tried. Igual: carry→carried, study→studied."},
-  {n:22, es:"preguntar",               base:"ask",          past:"asked",         pp:"asked",           ir:false, tip:"Regular. 'Ask for' = pedir algo. 'Ask about' = preguntar sobre."},
-  {n:23, es:"necesitar",               base:"need",         past:"needed",        pp:"needed",          ir:false, tip:"Regular. 'Need to' + infinitivo: I need to study more."},
-  {n:24, es:"sentir",                   base:"feel",         past:"felt",          pp:"felt",            ir:true,  tip:"'Felt' para ambas formas. Patrón: feel→felt. Similar a: sleep→slept, keep→kept."},
-  {n:25, es:"convertirse en",           base:"become",       past:"became",        pp:"become",          ir:true,  tip:"El participle 'become' es igual a la base, como 'come→came→come'."},
-  {n:26, es:"dejar / salir",            base:"leave",        past:"left",          pp:"left",            ir:true,  tip:"'Left' para ambas formas. 'Leave' = salir de un lugar O dejar algo atrás."},
-  {n:27, es:"poner",                    base:"put",          past:"put",           pp:"put",             ir:true,  tip:"¡Tres formas iguales! put→put→put. Como: cut, set, let, hit, shut."},
-  {n:28, es:"significar",              base:"mean",         past:"meant",         pp:"meant",           ir:true,  tip:"'Meant' suena como 'ment'. Similar a: dream→dreamt, lean→leant."},
-  {n:29, es:"mantener",                base:"keep",         past:"kept",          pp:"kept",            ir:true,  tip:"'Kept' para ambas formas. Patrón: keep→kept. Similar a: feel→felt, sleep→slept."},
-  {n:30, es:"dejar / permitir",         base:"let",          past:"let",           pp:"let",             ir:true,  tip:"¡Tres formas iguales! let→let→let. 'Let' + obj + verbo base: Let me help you."},
-  {n:31, es:"comenzar / empezar",       base:"begin",        past:"began",         pp:"begun",           ir:true,  tip:"Vocal cambiante i→a→u: begin→began→begun. Similar a: swim→swam→swum, sing→sang→sung."},
-  {n:32, es:"parecer",                  base:"seem",         past:"seemed",        pp:"seemed",          ir:false, tip:"Regular. Se usa con adjetivos: It seems difficult / She seemed happy."},
-  {n:33, es:"ayudar",                   base:"help",         past:"helped",        pp:"helped",          ir:false, tip:"Regular. 'Help' + to o infinitivo: Help me (to) understand."},
-  {n:34, es:"hablar (charlar)",         base:"talk",         past:"talked",        pp:"talked",          ir:false, tip:"Regular. 'Talk' es informal; 'speak' es más formal."},
-  {n:35, es:"girar",                    base:"turn",         past:"turned",        pp:"turned",          ir:false, tip:"Regular. Phrasal verbs: turn on, turn off, turn up, turn down."},
-  {n:36, es:"comenzar (2)",             base:"start",        past:"started",       pp:"started",         ir:false, tip:"Regular. 'Start' es más coloquial que 'begin'. Ambas significan empezar."},
-  {n:37, es:"mostrar",                  base:"show",         past:"showed",        pp:"shown",           ir:true,  tip:"El participle puede ser 'shown' (más común) o 'showed'."},
-  {n:38, es:"escuchar (oír)",           base:"hear",         past:"heard",         pp:"heard",           ir:true,  tip:"'Heard' suena como 'herd'. 'Hear' es pasivo vs 'listen' que es activo."},
-  {n:39, es:"jugar",                    base:"play",         past:"played",        pp:"played",          ir:false, tip:"Regular. 'Play' + deporte (sin 'the'): play football. + instrumento (con 'the'): play the guitar."},
-  {n:40, es:"correr",                   base:"run",          past:"ran",           pp:"run",             ir:true,  tip:"El participle 'run' es igual a la base. run→ran→run."},
-  {n:41, es:"mover / moverse",          base:"move",         past:"moved",         pp:"moved",           ir:false, tip:"Regular. Transitivo: move the table. Intransitivo: I moved to Spain."},
-  {n:42, es:"gustar / querer",          base:"like",         past:"liked",         pp:"liked",           ir:false, tip:"Regular. 'Like' + -ing (actividades): I like swimming."},
-  {n:43, es:"vivir",                    base:"live",         past:"lived",         pp:"lived",           ir:false, tip:"Regular. Termina en -e, solo -d: live→lived."},
-  {n:44, es:"creer",                    base:"believe",      past:"believed",      pp:"believed",        ir:false, tip:"Regular. 'Believe in' = creer en algo (I believe in you)."},
-  {n:45, es:"sostener",                 base:"hold",         past:"held",          pp:"held",            ir:true,  tip:"'Held' para ambas. Usos: hold a baby (sostener), hold a meeting (celebrar)."},
-  {n:46, es:"traer",                    base:"bring",        past:"brought",       pp:"brought",         ir:true,  tip:"'Brought' para ambas. bring→brought. Similar a: buy→bought, think→thought."},
-  {n:47, es:"suceder / ocurrir",        base:"happen",       past:"happened",      pp:"happened",        ir:false, tip:"Regular. 'It happened to me' = me pasó a mí."},
-  {n:48, es:"escribir",                 base:"write",        past:"wrote",         pp:"written",         ir:true,  tip:"Patrón: write→wrote→written. Similar a: ride→rode→ridden, drive→drove→driven."},
-  {n:49, es:"proporcionar",            base:"provide",      past:"provided",      pp:"provided",        ir:false, tip:"Regular. 'Provide with': The company provides us with tools."},
-  {n:50, es:"sentarse",                 base:"sit",          past:"sat",           pp:"sat",             ir:true,  tip:"'Sat' para ambas formas. sit→sat→sat."},
-  {n:51, es:"estar de pie",             base:"stand",        past:"stood",         pp:"stood",           ir:true,  tip:"'Stood' para ambas. stand→stood. Igual que: understand→understood."},
-  {n:52, es:"perder",                   base:"lose",         past:"lost",          pp:"lost",            ir:true,  tip:"'Lost' para ambas. Cuidado: 'lose' (perder, v.) vs 'loose' (suelto, adj.)."},
-  {n:53, es:"pagar",                    base:"pay",          past:"paid",          pp:"paid",            ir:true,  tip:"'Paid' para ambas. pay→paid. Similar a: say→said, lay→laid."},
-  {n:54, es:"conocer / reunirse",       base:"meet",         past:"met",           pp:"met",             ir:true,  tip:"'Met' para ambas. meet→met→met. 'Nice to meet you!'"},
-  {n:55, es:"incluir",                  base:"include",      past:"included",      pp:"included",        ir:false, tip:"Regular. 'Including' = incluyendo: There were 5 people, including the teacher."},
-  {n:56, es:"continuar",               base:"continue",     past:"continued",     pp:"continued",       ir:false, tip:"Regular. 'Continue' + -ing o to + infinitivo: continue working."},
-  {n:57, es:"establecer / ajustar",    base:"set",          past:"set",           pp:"set",             ir:true,  tip:"¡Tres formas iguales! set→set→set. Igual que: put, cut, let."},
-  {n:58, es:"aprender",                base:"learn",        past:"learned/learnt",pp:"learned/learnt",  ir:false, tip:"Regular con dos variantes: 'learned' (americano) o 'learnt' (británico). Ambas válidas."},
-  {n:59, es:"cambiar",                 base:"change",       past:"changed",       pp:"changed",         ir:false, tip:"Regular. 'Change your mind' = cambiar de opinión."},
-  {n:60, es:"liderar",                 base:"lead",         past:"led",           pp:"led",             ir:true,  tip:"'Led' para ambas. No confundas con 'lead' (plomo, metal), que se pronuncia igual que 'led'."},
-  {n:61, es:"comprender",              base:"understand",   past:"understood",    pp:"understood",      ir:true,  tip:"Compuesto de 'stand': stand→stood, por eso understand→understood."},
-  {n:62, es:"ver / mirar",             base:"watch",        past:"watched",       pp:"watched",         ir:false, tip:"Regular. 'Watch' es activo (watch TV), 'see' es pasivo/casual (see a movie)."},
-  {n:63, es:"seguir",                  base:"follow",       past:"followed",      pp:"followed",        ir:false, tip:"Regular. 'Follow instructions', 'follow someone on social media'."},
-  {n:64, es:"detener / parar",         base:"stop",         past:"stopped",       pp:"stopped",         ir:false, tip:"Regular, dobla la p: stop→stopped. Regla CVC (consonante-vocal-consonante) final."},
-  {n:65, es:"crear",                   base:"create",       past:"created",       pp:"created",         ir:false, tip:"Regular. Termina en -e, solo -d: create→created."},
-  {n:66, es:"hablar (formal)",         base:"speak",        past:"spoke",         pp:"spoken",          ir:true,  tip:"Patrón: speak→spoke→spoken. Similar a: break→broke→broken, wake→woke→woken."},
-  {n:67, es:"leer",                    base:"read",         past:"read",          pp:"read",            ir:true,  tip:"¡Las tres formas se ESCRIBEN igual ('read') pero el pasado y participle se PRONUNCIAN 'red'!"},
-  {n:68, es:"permitir",                base:"allow",        past:"allowed",       pp:"allowed",         ir:false, tip:"Regular. 'Be allowed to' = tener permiso para."},
-  {n:69, es:"añadir",                  base:"add",          past:"added",         pp:"added",           ir:false, tip:"Regular. 'Add me on WhatsApp!' Muy usado también en matemáticas."},
-  {n:70, es:"gastar tiempo/dinero",    base:"spend",        past:"spent",         pp:"spent",           ir:true,  tip:"'Spent' para ambas. 'Spend time' (pasar tiempo) y 'spend money' (gastar dinero)."},
-  {n:71, es:"crecer",                  base:"grow",         past:"grew",          pp:"grown",           ir:true,  tip:"Patrón: grow→grew→grown. Similar a: blow→blew→blown, know→knew→known."},
-  {n:72, es:"abrir",                   base:"open",         past:"opened",        pp:"opened",          ir:false, tip:"Regular. 'Open' también es adjetivo: The store is open."},
-  {n:73, es:"caminar / andar",         base:"walk",         past:"walked",        pp:"walked",          ir:false, tip:"Regular. 'Walk' vs 'go by foot': ambas se usan, 'walk' es más natural."},
-  {n:74, es:"ganar",                   base:"win",          past:"won",           pp:"won",             ir:true,  tip:"'Won' se pronuncia igual que 'one' (uno). win→won→won."},
-  {n:75, es:"ofrecer",                 base:"offer",        past:"offered",       pp:"offered",         ir:false, tip:"Regular. 'Offer to' + infinitivo: She offered to help."},
-  {n:76, es:"recordar",                base:"remember",     past:"remembered",    pp:"remembered",      ir:false, tip:"Regular. 'Remember' + -ing (pasado) vs + to (no olvidar hacerlo en el futuro)."},
-  {n:77, es:"amar",                    base:"love",         past:"loved",         pp:"loved",           ir:false, tip:"Regular. 'Love' + -ing: I love swimming. Más intenso que 'like'."},
-  {n:78, es:"considerar",             base:"consider",     past:"considered",    pp:"considered",      ir:false, tip:"Regular. 'Consider' + -ing: I'm considering leaving. No: 'consider to leave'."},
-  {n:79, es:"aparecer",               base:"appear",       past:"appeared",      pp:"appeared",        ir:false, tip:"Regular. Más formal que 'seem'. 'Appear to be': She appears to be happy."},
-  {n:80, es:"comprar",                base:"buy",          past:"bought",        pp:"bought",          ir:true,  tip:"'Bought' para ambas. buy→bought. Patrón: bring→brought, think→thought."},
-  {n:81, es:"esperar (aguardar)",     base:"wait",         past:"waited",        pp:"waited",          ir:false, tip:"Regular. 'Wait for' = esperar a. 'Wait to' = esperar para hacer algo."},
-  {n:82, es:"servir",                 base:"serve",        past:"served",        pp:"served",          ir:false, tip:"Regular. Termina en -e, solo -d. En tenis: 'serve' también es sacar."},
-  {n:83, es:"morir",                  base:"die",          past:"died",          pp:"died",            ir:false, tip:"Regular. La -ie → -y antes de -ing: die→dying. (Para evitar doble -ie.)"},
-  {n:84, es:"enviar",                 base:"send",         past:"sent",          pp:"sent",            ir:true,  tip:"'Sent' para ambas. send→sent. Igual que: spend→spent, lend→lent."},
-  {n:85, es:"esperar (contar con)",   base:"expect",       past:"expected",      pp:"expected",        ir:false, tip:"Regular. 'Expect' + to: I expected to win. Diferente de 'hope' (ilusión) y 'wait' (aguardar)."},
-  {n:86, es:"construir",              base:"build",        past:"built",         pp:"built",           ir:true,  tip:"'Built' para ambas. build→built→built."},
-  {n:87, es:"permanecer / quedarse",  base:"stay",         past:"stayed",        pp:"stayed",          ir:false, tip:"Regular. 'Stay' vs 'remain': ambas = quedarse, 'remain' es más formal."},
-  {n:88, es:"caer",                   base:"fall",         past:"fell",          pp:"fallen",          ir:true,  tip:"Patrón: fall→fell→fallen. 'Fall' en otoño (inglés americano) = caída de hojas."},
-  {n:89, es:"cortar",                 base:"cut",          past:"cut",           pp:"cut",             ir:true,  tip:"¡Tres formas iguales! cut→cut→cut. Igual que: put, set, let, hit, shut."},
-  {n:90, es:"llegar / alcanzar",      base:"reach",        past:"reached",       pp:"reached",         ir:false, tip:"Regular. 'Reach' = llegar a un lugar o alcanzar algo físicamente."},
-  {n:91, es:"matar",                  base:"kill",         past:"killed",        pp:"killed",          ir:false, tip:"Regular. 'You killed it!' en coloquial = ¡Lo hiciste genial!"},
-  {n:92, es:"permanecer (formal)",    base:"remain",       past:"remained",      pp:"remained",        ir:false, tip:"Regular. Más formal que 'stay'. 'The problem remains unsolved.'"},
-  {n:93, es:"sugerir",                base:"suggest",      past:"suggested",     pp:"suggested",       ir:false, tip:"Regular. 'Suggest' + -ing (NO to): I suggest going. ✗ 'suggest to go'"},
-  {n:94, es:"elevar / levantar",      base:"raise",        past:"raised",        pp:"raised",          ir:false, tip:"Regular. 'Raise' (levantar algo) vs 'rise' (subir solo): Raise your hand / The sun rises."},
-  {n:95, es:"pasar / aprobar",        base:"pass",         past:"passed",        pp:"passed",          ir:false, tip:"Regular. 'Pass an exam' = aprobar. 'Pass by' = pasar por un lugar."},
-  {n:96, es:"vender",                 base:"sell",         past:"sold",          pp:"sold",            ir:true,  tip:"'Sold' para ambas. sell→sold→sold. Similar a: tell→told."},
-  {n:97, es:"exigir / necesitar",     base:"require",      past:"required",      pp:"required",        ir:false, tip:"Regular. Más formal que 'need'. 'This job requires experience.'"},
-  {n:98, es:"informar / comunicar",   base:"report",       past:"reported",      pp:"reported",        ir:false, tip:"Regular. 'Report to' = reportar a alguien. 'Report on' = informar sobre algo."},
-  {n:99, es:"decidir",                base:"decide",       past:"decided",       pp:"decided",         ir:false, tip:"Regular. 'Decide' + to + infinitivo. Siempre seguido de 'to', nunca '-ing'."},
-  {n:100,es:"tirar / extraer",        base:"pull",         past:"pulled",        pp:"pulled",          ir:false, tip:"Regular. 'Pull' = jalar hacia ti; 'push' = empujar hacia fuera."},
-  {n:101,es:"estar de acuerdo",       base:"agree",        past:"agreed",        pp:"agreed",          ir:false, tip:"Regular. 'Agree with' = estar de acuerdo con alguien. 'Agree on' = acordar sobre algo."},
-  {n:102,es:"responder",              base:"answer",       past:"answered",      pp:"answered",        ir:false, tip:"Regular. 'Answer' sin preposición: answer the phone, answer a question."},
-  {n:103,es:"llegar",                 base:"arrive",       past:"arrived",       pp:"arrived",         ir:false, tip:"Regular. 'Arrive at' (lugar pequeño) / 'arrive in' (ciudad/país)."},
-  {n:104,es:"pedir",                  base:"ask for",      past:"asked for",     pp:"asked for",       ir:false, tip:"Phrasal verb regular. 'Ask for' = pedir algo. 'Ask' solo = preguntar."},
-  {n:105,es:"pedir prestado",         base:"borrow",       past:"borrowed",      pp:"borrowed",        ir:false, tip:"Regular. 'Borrow' (recibir prestado) vs 'lend' (dar prestado)."},
-  {n:106,es:"romper",                 base:"break",        past:"broke",         pp:"broken",          ir:true,  tip:"Patrón: break→broke→broken. Similar a: speak→spoke→spoken, wake→woke→woken."},
-  {n:107,es:"elegir",                 base:"choose",       past:"chose",         pp:"chosen",          ir:true,  tip:"Patrón: choose→chose→chosen. 'Chose' se pronuncia 'choze'."},
-  {n:108,es:"limpiar",                base:"clean",        past:"cleaned",       pp:"cleaned",         ir:false, tip:"Regular. 'Clean up' = limpiar completamente. 'Clean out' = limpiar vaciando."},
-  {n:109,es:"cerrar",                 base:"close",        past:"closed",        pp:"closed",          ir:false, tip:"Regular. Termina en -e, solo -d. 'Close' también es adjetivo (cercano, diferente pronunciación)."},
-  {n:110,es:"quejarse",               base:"complain",     past:"complained",    pp:"complained",      ir:false, tip:"Regular. 'Complain about' = quejarse de algo. 'Complain to' = quejarse con alguien."},
-  {n:111,es:"cocinar",                base:"cook",         past:"cooked",        pp:"cooked",          ir:false, tip:"Regular. 'Cook' = cocinar con calor; 'make' = preparar en general."},
-  {n:112,es:"copiar",                 base:"copy",         past:"copied",        pp:"copied",          ir:false, tip:"Regular. y→i: copy→copied. Igual que: try→tried, study→studied."},
-  {n:113,es:"llorar",                 base:"cry",          past:"cried",         pp:"cried",           ir:false, tip:"Regular. y→i: cry→cried. 'Cry' puede ser llorar o gritar (uso literario)."},
-  {n:114,es:"bailar",                 base:"dance",        past:"danced",        pp:"danced",          ir:false, tip:"Regular. Termina en -e, solo -d: dance→danced."},
-  {n:115,es:"entregar",               base:"deliver",      past:"delivered",     pp:"delivered",       ir:false, tip:"Regular. 'Deliver a speech' = pronunciar un discurso."},
-  {n:116,es:"describir",              base:"describe",     past:"described",     pp:"described",       ir:false, tip:"Regular. 'Describe' + objeto (sin 'about'). ✗ 'describe about it'."},
-  {n:117,es:"conducir",               base:"drive",        past:"drove",         pp:"driven",          ir:true,  tip:"Patrón: drive→drove→driven. Similar a: ride→rode→ridden, write→wrote→written."},
-  {n:118,es:"explicar",               base:"explain",      past:"explained",     pp:"explained",       ir:false, tip:"Regular. 'Explain to + persona'. ✗ 'explain me this', ✓ 'explain this to me'."},
-  {n:119,es:"terminar",               base:"finish",       past:"finished",      pp:"finished",        ir:false, tip:"Regular. 'Finish' + -ing: I finished studying. ✗ 'finish to study'."},
-  {n:120,es:"arreglar",               base:"fix",          past:"fixed",         pp:"fixed",           ir:false, tip:"Regular. 'Fix' = reparar. También: 'fix a meal' (coloquial = preparar una comida)."},
-  {n:121,es:"olvidar",                base:"forget",       past:"forgot",        pp:"forgotten",       ir:true,  tip:"forget→forgot→forgotten. 'Forget to do' = no acordarse de hacer. 'Forget doing' = no recordar que ocurrió."},
-  {n:122,es:"perdonar",               base:"forgive",      past:"forgave",       pp:"forgiven",        ir:true,  tip:"Mismo patrón que give→gave→given. 'Forgive and forget' es un dicho común."},
-  {n:123,es:"adivinar",               base:"guess",        past:"guessed",       pp:"guessed",         ir:false, tip:"Regular. 'Guess what?' = ¿Adivina qué? 'I guess' = supongo."},
-  {n:124,es:"odiar",                  base:"hate",         past:"hated",         pp:"hated",           ir:false, tip:"Regular. 'Hate' + -ing: I hate waiting. Más fuerte que 'dislike'."},
-  {n:125,es:"esperar con esperanza",  base:"hope",         past:"hoped",         pp:"hoped",           ir:false, tip:"Regular. 'Hope' + to: I hope to see you. 'Hope' + that: I hope you're well."},
-  {n:126,es:"imaginar",               base:"imagine",      past:"imagined",      pp:"imagined",        ir:false, tip:"Regular. 'Imagine' + -ing: Imagine living there! '¿Can you imagine?' es muy coloquial."},
-  {n:127,es:"invitar",                base:"invite",       past:"invited",       pp:"invited",         ir:false, tip:"Regular. 'Invite' + persona + to: Invite her to the party."},
-  {n:128,es:"unirse",                 base:"join",         past:"joined",        pp:"joined",          ir:false, tip:"Regular. 'Join' = unirse a un grupo o actividad. 'Join me!' = ¡Únete!"},
-  {n:129,es:"saltar",                 base:"jump",         past:"jumped",        pp:"jumped",          ir:false, tip:"Regular. 'Jump to conclusions' = sacar conclusiones precipitadas (idiom)."},
-  {n:130,es:"reír",                   base:"laugh",        past:"laughed",       pp:"laughed",         ir:false, tip:"Regular. 'Laugh at' = reírse de. 'Laugh with' = reírse junto a. ¡Diferencia importante!"},
-  {n:131,es:"prestar",                base:"lend",         past:"lent",          pp:"lent",            ir:true,  tip:"'Lent' para ambas. lend→lent. Opuesto de 'borrow'. 'Lend me a hand' = ayúdame."},
-  {n:132,es:"escuchar (atento)",      base:"listen",       past:"listened",      pp:"listened",        ir:false, tip:"Regular. 'Listen' es activo (prestar atención). Siempre 'listen TO': listen to music."},
-  {n:133,es:"extrañar / perder",      base:"miss",         past:"missed",        pp:"missed",          ir:false, tip:"Regular. 'Miss you' (extrañarte) vs 'miss the bus' (perder el autobús)."},
-  {n:134,es:"planear",                base:"plan",         past:"planned",       pp:"planned",         ir:false, tip:"Regular, dobla la n: plan→planned. Regla CVC. 'Plan to' + infinitivo."},
-  {n:135,es:"practicar",              base:"practice",     past:"practiced",     pp:"practiced",       ir:false, tip:"Regular. Americano: 'practice' para verbo y sustantivo. Británico: 'practise' (verbo), 'practice' (n.)."},
-  {n:136,es:"preferir",               base:"prefer",       past:"preferred",     pp:"preferred",       ir:false, tip:"Regular, dobla la r: prefer→preferred. Regla CVC. 'Prefer' + -ing o to."},
-  {n:137,es:"preparar",               base:"prepare",      past:"prepared",      pp:"prepared",        ir:false, tip:"Regular. 'Prepare for' = prepararse para."},
-  {n:138,es:"prometer",               base:"promise",      past:"promised",      pp:"promised",        ir:false, tip:"Regular. 'Promise' + to: I promise to call. 'I promise!' (¡Lo prometo!)"},
-  {n:139,es:"responder (mensaje)",    base:"reply",        past:"replied",       pp:"replied",         ir:false, tip:"Regular. y→i: reply→replied. 'Reply to' = responder a un email/mensaje."},
-  {n:140,es:"descansar",              base:"rest",         past:"rested",        pp:"rested",          ir:false, tip:"Regular. 'Rest assured' = ten por seguro. 'The rest' = el resto."},
-  {n:141,es:"regresar / devolver",    base:"return",       past:"returned",      pp:"returned",        ir:false, tip:"Regular. 'Return' = volver O devolver algo."},
-  {n:142,es:"ahorrar / guardar",      base:"save",         past:"saved",         pp:"saved",           ir:false, tip:"Regular. 'Save' = ahorrar dinero, guardar archivo o salvar a alguien."},
-  {n:143,es:"buscar (internet)",      base:"search",       past:"searched",      pp:"searched",        ir:false, tip:"Regular. 'Search for' = buscar algo. 'Search' solo = registrar (search the house)."},
-  {n:144,es:"compartir",              base:"share",        past:"shared",        pp:"shared",          ir:false, tip:"Regular. 'Share with' = compartir con alguien."},
-  {n:145,es:"gritar",                 base:"shout",        past:"shouted",       pp:"shouted",         ir:false, tip:"Regular. 'Shout at' = gritarle a alguien (negativo). 'Shout out' = reconocer públicamente."},
-  {n:146,es:"dormir",                 base:"sleep",        past:"slept",         pp:"slept",           ir:true,  tip:"'Slept' para ambas. sleep→slept. Similar a: keep→kept, feel→felt."},
-  {n:147,es:"sonreír",                base:"smile",        past:"smiled",        pp:"smiled",          ir:false, tip:"Regular. 'Smile at' = sonreírle a alguien. 'Keep smiling!'"},
-  {n:148,es:"estudiar",               base:"study",        past:"studied",       pp:"studied",         ir:false, tip:"Regular. y→i: study→studied. 'Study for' = estudiar para (un examen)."},
-  {n:149,es:"enseñar",                base:"teach",        past:"taught",        pp:"taught",          ir:true,  tip:"'Taught' para ambas. teach→taught. Similar a: catch→caught."},
-  {n:150,es:"agradecer",              base:"thank",        past:"thanked",       pp:"thanked",         ir:false, tip:"Regular. 'Thank' + persona + for + acción: Thank you for coming."},
-  {n:151,es:"viajar",                 base:"travel",       past:"traveled",      pp:"traveled",        ir:false, tip:"Regular. Americano: traveled. Británico: travelled (doble l). Ambas correctas."},
-  {n:152,es:"probarse (ropa)",        base:"try on",       past:"tried on",      pp:"tried on",        ir:false, tip:"Phrasal verb separable regular. y→i. 'Try the shirt on' o 'Try on the shirt'."},
-  {n:153,es:"usar todo / agotar",     base:"use up",       past:"used up",       pp:"used up",         ir:false, tip:"Phrasal verb regular. 'Use up' = consumir completamente: I used up all the milk."},
-  {n:154,es:"visitar",                base:"visit",        past:"visited",       pp:"visited",         ir:false, tip:"Regular. 'Visit' + lugar (sin preposición): visit Spain. 'Pay a visit' = hacer una visita."},
-  {n:155,es:"despertarse",            base:"wake up",      past:"woke up",       pp:"woken up",        ir:true,  tip:"Phrasal verb irregular. wake→woke→woken. 'Wake up!' = ¡Despiértate!"},
-  {n:156,es:"lavar",                  base:"wash",         past:"washed",        pp:"washed",          ir:false, tip:"Regular. 'Wash up' = lavarse (UK) / lavar platos. 'Wash away' = llevarse la corriente."},
-  {n:157,es:"usar / llevar puesto",   base:"wear",         past:"wore",          pp:"worn",            ir:true,  tip:"Patrón: wear→wore→worn. Similar a: tear→tore→torn, swear→swore→sworn."},
-  {n:158,es:"preocuparse",            base:"worry",        past:"worried",       pp:"worried",         ir:false, tip:"Regular. y→i: worry→worried. 'Worry about' = preocuparse por."},
-  {n:159,es:"hacer ejercicio",        base:"work out",     past:"worked out",    pp:"worked out",      ir:false, tip:"Phrasal verb regular. También: resolver un problema o resultar bien: 'It worked out!'"},
-  {n:160,es:"aceptar",                base:"accept",       past:"accepted",      pp:"accepted",        ir:false, tip:"Regular. 'Accept' (aceptar) ≠ 'except' (excepto). ¡No las confundas!"},
-  {n:161,es:"cancelar",               base:"cancel",       past:"canceled",      pp:"canceled",        ir:false, tip:"Regular. Americano: canceled. Británico: cancelled. 'Cancel out' = anularse."},
-  {n:162,es:"revisar",                base:"check",        past:"checked",       pp:"checked",         ir:false, tip:"Regular. 'Check in' = registrarse. 'Check out' = hacer checkout. 'Check out!' = ¡Mira esto!"},
-  {n:163,es:"comparar",               base:"compare",      past:"compared",      pp:"compared",        ir:false, tip:"Regular. 'Compare to/with' = comparar con. 'Compared to' = en comparación con."},
-  {n:164,es:"decidir (sobre)",        base:"decide on",    past:"decided on",    pp:"decided on",      ir:false, tip:"Phrasal verb regular. 'Decide on' = decidirse por una opción: I decided on the red one."},
-  {n:165,es:"depender",               base:"depend",       past:"depended",      pp:"depended",        ir:false, tip:"Regular. Siempre 'depend on'. ✗ 'depend of'. 'It depends!' = ¡Depende!"},
-  {n:166,es:"disfrutar",              base:"enjoy",        past:"enjoyed",       pp:"enjoyed",         ir:false, tip:"Regular. 'Enjoy' + -ing: I enjoy reading. ✗ 'enjoy to read'. 'Enjoy!' = ¡Disfrútalo!"},
-  {n:167,es:"fallar",                 base:"fail",         past:"failed",        pp:"failed",          ir:false, tip:"Regular. 'Fail to' + infinitivo: She failed to arrive. 'Fail an exam' = suspender."},
-  {n:168,es:"mejorar",                base:"improve",      past:"improved",      pp:"improved",        ir:false, tip:"Regular. 'Improve on' = mejorar algo existente. 'Room for improvement' = margen de mejora."},
-  {n:169,es:"aumentar",               base:"increase",     past:"increased",     pp:"increased",       ir:false, tip:"Regular. 'Increase by' = aumentar en (%). Opuesto: decrease."},
-  {n:170,es:"bajar / reducir",        base:"lower",        past:"lowered",       pp:"lowered",         ir:false, tip:"Regular. 'Lower' = reducir o bajar. Como adjetivo: lower price (precio más bajo)."},
-  {n:171,es:"manejar / lograr",       base:"manage",       past:"managed",       pp:"managed",         ir:false, tip:"Regular. 'Manage to' = lograr algo difícil: I managed to pass! 'Manage' + -ing = gestionar."},
-  {n:172,es:"notar",                  base:"notice",       past:"noticed",       pp:"noticed",         ir:false, tip:"Regular. 'Notice' + objeto: Did you notice the sign? 'Take notice of' = prestar atención."},
-  {n:173,es:"ordenar / pedir",        base:"order",        past:"ordered",       pp:"ordered",         ir:false, tip:"Regular. 'Order' = mandar o pedir en restaurante/tienda online."},
-  {n:174,es:"escoger",                base:"pick",         past:"picked",        pp:"picked",          ir:false, tip:"Regular. 'Pick up' = recoger. 'Pick out' = escoger. 'Pick on' = meterse con alguien."},
-  {n:175,es:"prevenir",               base:"prevent",      past:"prevented",     pp:"prevented",       ir:false, tip:"Regular. 'Prevent from' + -ing: The rain prevented me from going. ✗ 'prevent to go'."},
-  {n:176,es:"proteger",               base:"protect",      past:"protected",     pp:"protected",       ir:false, tip:"Regular. 'Protect from/against': Sunscreen protects you from burns."},
-  {n:177,es:"darse cuenta",           base:"realize",      past:"realized",      pp:"realized",        ir:false, tip:"Regular. Americano: realize. Británico: realise. 'Realize that': I realized I was wrong."},
-  {n:178,es:"reducir",                base:"reduce",       past:"reduced",       pp:"reduced",         ir:false, tip:"Regular. 'Reduce to' = reducir a: The fire reduced it to ashes."},
-  {n:179,es:"reemplazar",             base:"replace",      past:"replaced",      pp:"replaced",        ir:false, tip:"Regular. 'Replace with/by' = reemplazar con: Replace butter with olive oil."},
-  {n:180,es:"resolver",               base:"solve",        past:"solved",        pp:"solved",          ir:false, tip:"Regular. 'Solve a problem/mystery/puzzle'. 'Problem solver' = persona que resuelve problemas."},
-  {n:181,es:"apoyar",                 base:"support",      past:"supported",     pp:"supported",       ir:false, tip:"Regular. 'Support' = apoyar emocional/financieramente o a un equipo deportivo."},
-  {n:182,es:"confiar",                base:"trust",        past:"trusted",       pp:"trusted",         ir:false, tip:"Regular. 'Trust in' = confiar en (abstracto). 'Trust' + persona directamente: I trust you."},
-  {n:183,es:"encender",               base:"turn on",      past:"turned on",     pp:"turned on",       ir:false, tip:"Phrasal verb separable regular. Opuesto: turn off. 'Turn on the light' o 'Turn the light on'."},
-  {n:184,es:"apagar",                 base:"turn off",     past:"turned off",    pp:"turned off",      ir:false, tip:"Phrasal verb separable regular. 'Turn off the TV' o 'Turn the TV off'."},
-  {n:185,es:"actualizar",             base:"update",       past:"updated",       pp:"updated",         ir:false, tip:"Regular. Termina en -e, solo -d. 'Keep updated' = mantenerse al día."},
-  {n:186,es:"advertir",               base:"warn",         past:"warned",        pp:"warned",          ir:false, tip:"Regular. 'Warn + persona + about': Warn her about the danger. 'Warning!' = ¡Cuidado!"},
-  {n:187,es:"desperdiciar",           base:"waste",        past:"wasted",        pp:"wasted",          ir:false, tip:"Regular. 'Waste time/money'. 'What a waste!' es una expresión muy común."},
-  {n:188,es:"dar la bienvenida",      base:"welcome",      past:"welcomed",      pp:"welcomed",        ir:false, tip:"Regular. 'You're welcome!' = ¡De nada! 'Welcome to' = Bienvenido a..."},
-  {n:189,es:"preocuparse por",        base:"worry about",  past:"worried about", pp:"worried about",   ir:false, tip:"Phrasal verb regular. y→i. 'Don't worry about it!' es una de las frases más usadas del inglés."},
-  {n:190,es:"invitar a salir (cita)", base:"ask out",      past:"asked out",     pp:"asked out",       ir:false, tip:"Phrasal verb regular. 'Ask someone out' = invitar a una cita romántica."},
-  {n:191,es:"buscar",                 base:"look for",     past:"looked for",    pp:"looked for",      ir:false, tip:"Phrasal verb regular. 'What are you looking for?' es muy frecuente."},
-  {n:192,es:"descubrir",              base:"find out",     past:"found out",     pp:"found out",       ir:true,  tip:"Phrasal verb irregular (find→found). 'Find out' = enterarse/descubrir. 'I found out the truth!'"},
-  {n:193,es:"llevarse bien",          base:"get along",    past:"got along",     pp:"gotten along",    ir:true,  tip:"Phrasal verb irregular. 'Get along with' = llevarse bien con alguien. 'We get along great!'"},
-  {n:194,es:"rendirse",               base:"give up",      past:"gave up",       pp:"given up",        ir:true,  tip:"Phrasal verb irregular (give→gave→given). 'Never give up!' es una frase icónica."},
-  {n:195,es:"continuar",              base:"go on",        past:"went on",       pp:"gone on",         ir:true,  tip:"Phrasal verb irregular (go→went→gone). 'Go on!' = ¡Sigue! ¡Continúa!"},
-  {n:196,es:"pasar el rato",          base:"hang out",     past:"hung out",      pp:"hung out",        ir:true,  tip:"Phrasal verb irregular. 'Hang out with friends' = pasar el rato. Muy coloquial."},
-  {n:197,es:"cuidar",                 base:"take care",    past:"took care",     pp:"taken care",      ir:true,  tip:"Phrasal verb irregular (take→took→taken). 'Take care of' = cuidar de. 'Take care!' = ¡Cuídate!"},
-  {n:198,es:"pensar en",              base:"think about",  past:"thought about", pp:"thought about",   ir:true,  tip:"Phrasal verb irregular (think→thought). 'Think about it!' = ¡Piénsalo!"}
+  {n:1,  es:"ser / estar",              base:"be",           past:"was/were",      pp:"been",            ir:true,  tip:"Pasado: I/he/she/it → 'was' | you/we/they → 'were'. Participle siempre 'been'."},
+  {n:2,  es:"tener / haber",            base:"have",         past:"had",           pp:"had",             ir:true,  tip:"'Had' sirve tanto de past simple como de participle. Muy común en present perfect: I have had lunch."},
+  {n:3,  es:"hacer",                    base:"do",           past:"did",           pp:"done",            ir:true,  tip:"Auxiliar clave: Did you go? I didn't know. Participle 'done' también significa terminado."},
+  {n:4,  es:"decir",                    base:"say",          past:"said",          pp:"said",            ir:true,  tip:"'Said' se pronuncia 'sed'. Past y participle son iguales."},
+  {n:5,  es:"ir",                       base:"go",           past:"went",          pp:"gone",            ir:true,  tip:"'Went' viene de un verbo antiguo distinto; 'gone' es el participle. go→went→gone."},
+  {n:6,  es:"obtener",                  base:"get",          past:"got",           pp:"gotten/got",      ir:true,  tip:"Americano: 'gotten'. Británico: 'got'. Ambas válidas para el participle."},
+  {n:7,  es:"hacer (crear)",            base:"make",         past:"made",          pp:"made",            ir:true,  tip:"'Made' para past y participle. 'Make' = crear; 'do' = realizar una acción."},
+  {n:8,  es:"saber / conocer",          base:"know",         past:"knew",          pp:"known",           ir:true,  tip:"Patrón: know→knew→known. Similar a grow→grew→grown y blow→blew→blown."},
+  {n:9,  es:"pensar",                   base:"think",        past:"thought",       pp:"thought",         ir:true,  tip:"'Thought' rima con 'bought' y 'caught'. Mismo patrón -ight/-ought."},
+  {n:10, es:"tomar / llevar",           base:"take",         past:"took",          pp:"taken",           ir:true,  tip:"Patrón: take→took→taken. Similar a shake→shook→shaken."},
+  {n:11, es:"ver",                      base:"see",          past:"saw",           pp:"seen",            ir:true,  tip:"'Saw' como la herramienta de cortar. see→saw→seen."},
+  {n:12, es:"venir",                    base:"come",         past:"came",          pp:"come",            ir:true,  tip:"Participle 'come' igual a la base. No confundas con become→became→become."},
+  {n:13, es:"querer",                   base:"want",         past:"wanted",        pp:"wanted",          ir:false, tip:"Verbo regular: añade -ed. want→wanted→wanted."},
+  {n:14, es:"mirar",                    base:"look",         past:"looked",        pp:"looked",          ir:false, tip:"Regular. look→looked→looked."},
+  {n:15, es:"usar",                     base:"use",          past:"used",          pp:"used",            ir:false, tip:"Termina en -e, solo añade -d. use→used→used."},
+  {n:16, es:"encontrar",                base:"find",         past:"found",         pp:"found",           ir:true,  tip:"find→found→found. 'Found' también es pasado de 'found' (fundar)."},
+  {n:17, es:"dar",                      base:"give",         past:"gave",          pp:"given",           ir:true,  tip:"Patrón: give→gave→given. Similar a drive→drove→driven."},
+  {n:18, es:"contar / decir",           base:"tell",         past:"told",          pp:"told",            ir:true,  tip:"tell→told→told. 'Tell' necesita objeto (tell me), 'say' no (say it)."},
+  {n:19, es:"trabajar / funcionar",     base:"work",         past:"worked",        pp:"worked",          ir:false, tip:"Regular. work→worked→worked."},
+  {n:20, es:"llamar",                   base:"call",         past:"called",        pp:"called",          ir:false, tip:"Regular. call→called→called."},
+  {n:21, es:"intentar",                 base:"try",          past:"tried",         pp:"tried",           ir:false, tip:"y→i antes de -ed: try→tried→tried. Igual: carry→carried, study→studied."},
+  {n:22, es:"preguntar",                base:"ask",          past:"asked",         pp:"asked",           ir:false, tip:"Regular. ask→asked→asked."},
+  {n:23, es:"necesitar",                base:"need",         past:"needed",        pp:"needed",          ir:false, tip:"Regular. need→needed→needed."},
+  {n:24, es:"sentir",                   base:"feel",         past:"felt",          pp:"felt",            ir:true,  tip:"feel→felt→felt. Mismo patrón: sleep→slept, keep→kept."},
+  {n:25, es:"convertirse en",           base:"become",       past:"became",        pp:"become",          ir:true,  tip:"Participle igual a la base. become→became→become."},
+  {n:26, es:"dejar / salir",            base:"leave",        past:"left",          pp:"left",            ir:true,  tip:"leave→left→left. 'Left' para ambas formas."},
+  {n:27, es:"poner",                    base:"put",          past:"put",           pp:"put",             ir:true,  tip:"¡Tres formas iguales! put→put→put. Como cut, set, let, hit."},
+  {n:28, es:"significar",               base:"mean",         past:"meant",         pp:"meant",           ir:true,  tip:"mean→meant→meant. 'Meant' suena como 'ment'."},
+  {n:29, es:"mantener",                 base:"keep",         past:"kept",          pp:"kept",            ir:true,  tip:"keep→kept→kept. Mismo patrón: feel→felt, sleep→slept."},
+  {n:30, es:"dejar / permitir",         base:"let",          past:"let",           pp:"let",             ir:true,  tip:"Tres formas iguales. let→let→let."},
+  {n:31, es:"comenzar / empezar",       base:"begin",        past:"began",         pp:"begun",           ir:true,  tip:"Vocal i→a→u: begin→began→begun. Como swim→swam→swum, sing→sang→sung."},
+  {n:32, es:"parecer",                  base:"seem",         past:"seemed",        pp:"seemed",          ir:false, tip:"Regular. seem→seemed→seemed."},
+  {n:33, es:"ayudar",                   base:"help",         past:"helped",        pp:"helped",          ir:false, tip:"Regular. help→helped→helped."},
+  {n:34, es:"hablar (charlar)",         base:"talk",         past:"talked",        pp:"talked",          ir:false, tip:"Regular. talk→talked→talked."},
+  {n:35, es:"girar",                    base:"turn",         past:"turned",        pp:"turned",          ir:false, tip:"Regular. turn→turned→turned."},
+  {n:36, es:"comenzar (2)",             base:"start",        past:"started",       pp:"started",         ir:false, tip:"Regular. start→started→started."},
+  {n:37, es:"mostrar",                  base:"show",         past:"showed",        pp:"shown",           ir:true,  tip:"show→showed→shown. El participle puede ser 'shown' o 'showed'."},
+  {n:38, es:"escuchar (oír)",           base:"hear",         past:"heard",         pp:"heard",           ir:true,  tip:"hear→heard→heard. 'Heard' se pronuncia 'herd'."},
+  {n:39, es:"jugar",                    base:"play",         past:"played",        pp:"played",          ir:false, tip:"Regular. play→played→played."},
+  {n:40, es:"correr",                   base:"run",          past:"ran",           pp:"run",             ir:true,  tip:"Participle igual a la base. run→ran→run."},
+  {n:41, es:"mover / moverse",          base:"move",         past:"moved",         pp:"moved",           ir:false, tip:"Regular. move→moved→moved."},
+  {n:42, es:"gustar / querer",          base:"like",         past:"liked",         pp:"liked",           ir:false, tip:"Regular. like→liked→liked."},
+  {n:43, es:"vivir",                    base:"live",         past:"lived",         pp:"lived",           ir:false, tip:"Regular. live→lived→lived."},
+  {n:44, es:"creer",                    base:"believe",      past:"believed",      pp:"believed",        ir:false, tip:"Regular. believe→believed→believed."},
+  {n:45, es:"sostener",                 base:"hold",         past:"held",          pp:"held",            ir:true,  tip:"hold→held→held."},
+  {n:46, es:"traer",                    base:"bring",        past:"brought",       pp:"brought",         ir:true,  tip:"bring→brought→brought. Mismo patrón: buy→bought, think→thought."},
+  {n:47, es:"suceder / ocurrir",        base:"happen",       past:"happened",      pp:"happened",        ir:false, tip:"Regular. happen→happened→happened."},
+  {n:48, es:"escribir",                 base:"write",        past:"wrote",         pp:"written",         ir:true,  tip:"write→wrote→written. Similar: ride→rode→ridden."},
+  {n:49, es:"proporcionar",             base:"provide",      past:"provided",      pp:"provided",        ir:false, tip:"Regular. provide→provided→provided."},
+  {n:50, es:"sentarse",                 base:"sit",          past:"sat",           pp:"sat",             ir:true,  tip:"sit→sat→sat."},
+  {n:51, es:"estar de pie",             base:"stand",        past:"stood",         pp:"stood",           ir:true,  tip:"stand→stood→stood. Igual: understand→understood."},
+  {n:52, es:"perder",                   base:"lose",         past:"lost",          pp:"lost",            ir:true,  tip:"lose→lost→lost. Cuidado: 'lose' (perder) ≠ 'loose' (suelto)."},
+  {n:53, es:"pagar",                    base:"pay",          past:"paid",          pp:"paid",            ir:true,  tip:"pay→paid→paid. Similar: say→said."},
+  {n:54, es:"conocer / reunirse",       base:"meet",         past:"met",           pp:"met",             ir:true,  tip:"meet→met→met."},
+  {n:55, es:"incluir",                  base:"include",      past:"included",      pp:"included",        ir:false, tip:"Regular. include→included→included."},
+  {n:56, es:"continuar",                base:"continue",     past:"continued",     pp:"continued",       ir:false, tip:"Regular. continue→continued→continued."},
+  {n:57, es:"establecer / ajustar",     base:"set",          past:"set",           pp:"set",             ir:true,  tip:"Tres formas iguales. set→set→set."},
+  {n:58, es:"aprender",                 base:"learn",        past:"learned/learnt",pp:"learned/learnt",  ir:false, tip:"Dos variantes: 'learned' (americano) o 'learnt' (británico). Ambas válidas."},
+  {n:59, es:"cambiar",                  base:"change",       past:"changed",       pp:"changed",         ir:false, tip:"Regular. change→changed→changed."},
+  {n:60, es:"liderar",                  base:"lead",         past:"led",           pp:"led",             ir:true,  tip:"lead→led→led."},
+  {n:61, es:"comprender",               base:"understand",   past:"understood",    pp:"understood",      ir:true,  tip:"Derivado de 'stand→stood': understand→understood→understood."},
+  {n:62, es:"ver / mirar",              base:"watch",        past:"watched",       pp:"watched",         ir:false, tip:"Regular. watch→watched→watched."},
+  {n:63, es:"seguir",                   base:"follow",       past:"followed",      pp:"followed",        ir:false, tip:"Regular. follow→followed→followed."},
+  {n:64, es:"detener / parar",          base:"stop",         past:"stopped",       pp:"stopped",         ir:false, tip:"Dobla la p: stop→stopped→stopped. Regla CVC."},
+  {n:65, es:"crear",                    base:"create",       past:"created",       pp:"created",         ir:false, tip:"Regular. create→created→created."},
+  {n:66, es:"hablar (formal)",          base:"speak",        past:"spoke",         pp:"spoken",          ir:true,  tip:"speak→spoke→spoken. Similar: break→broke→broken."},
+  {n:67, es:"leer",                     base:"read",         past:"read",          pp:"read",            ir:true,  tip:"¡Las tres se ESCRIBEN igual! Pero past/participle se PRONUNCIAN 'red'."},
+  {n:68, es:"permitir",                 base:"allow",        past:"allowed",       pp:"allowed",         ir:false, tip:"Regular. allow→allowed→allowed."},
+  {n:69, es:"añadir",                   base:"add",          past:"added",         pp:"added",           ir:false, tip:"Regular. add→added→added."},
+  {n:70, es:"gastar tiempo/dinero",     base:"spend",        past:"spent",         pp:"spent",           ir:true,  tip:"spend→spent→spent."},
+  {n:71, es:"crecer",                   base:"grow",         past:"grew",          pp:"grown",           ir:true,  tip:"grow→grew→grown. Similar: know→knew→known, blow→blew→blown."},
+  {n:72, es:"abrir",                    base:"open",         past:"opened",        pp:"opened",          ir:false, tip:"Regular. open→opened→opened."},
+  {n:73, es:"caminar / andar",          base:"walk",         past:"walked",        pp:"walked",          ir:false, tip:"Regular. walk→walked→walked."},
+  {n:74, es:"ganar",                    base:"win",          past:"won",           pp:"won",             ir:true,  tip:"win→won→won. 'Won' suena igual que 'one' (uno)."},
+  {n:75, es:"ofrecer",                  base:"offer",        past:"offered",       pp:"offered",         ir:false, tip:"Regular. offer→offered→offered."},
+  {n:76, es:"recordar",                 base:"remember",     past:"remembered",    pp:"remembered",      ir:false, tip:"Regular. remember→remembered→remembered."},
+  {n:77, es:"amar",                     base:"love",         past:"loved",         pp:"loved",           ir:false, tip:"Regular. love→loved→loved."},
+  {n:78, es:"considerar",              base:"consider",     past:"considered",    pp:"considered",      ir:false, tip:"Regular. consider→considered→considered."},
+  {n:79, es:"aparecer",                base:"appear",       past:"appeared",      pp:"appeared",        ir:false, tip:"Regular. appear→appeared→appeared."},
+  {n:80, es:"comprar",                 base:"buy",          past:"bought",        pp:"bought",          ir:true,  tip:"buy→bought→bought. Patrón -ought: bring→brought, think→thought."},
+  {n:81, es:"esperar (aguardar)",      base:"wait",         past:"waited",        pp:"waited",          ir:false, tip:"Regular. wait→waited→waited."},
+  {n:82, es:"servir",                  base:"serve",        past:"served",        pp:"served",          ir:false, tip:"Regular. serve→served→served."},
+  {n:83, es:"morir",                   base:"die",          past:"died",          pp:"died",            ir:false, tip:"Regular. die→died→died. La -ie → -y para el gerundio: dying."},
+  {n:84, es:"enviar",                  base:"send",         past:"sent",          pp:"sent",            ir:true,  tip:"send→sent→sent. Igual que: spend→spent, lend→lent."},
+  {n:85, es:"esperar (contar con)",    base:"expect",       past:"expected",      pp:"expected",        ir:false, tip:"Regular. expect→expected→expected."},
+  {n:86, es:"construir",              base:"build",        past:"built",         pp:"built",           ir:true,  tip:"build→built→built."},
+  {n:87, es:"permanecer / quedarse",  base:"stay",         past:"stayed",        pp:"stayed",          ir:false, tip:"Regular. stay→stayed→stayed."},
+  {n:88, es:"caer",                   base:"fall",         past:"fell",          pp:"fallen",          ir:true,  tip:"fall→fell→fallen."},
+  {n:89, es:"cortar",                 base:"cut",          past:"cut",           pp:"cut",             ir:true,  tip:"Tres formas iguales. cut→cut→cut."},
+  {n:90, es:"llegar / alcanzar",      base:"reach",        past:"reached",       pp:"reached",         ir:false, tip:"Regular. reach→reached→reached."},
+  {n:91, es:"matar",                  base:"kill",         past:"killed",        pp:"killed",          ir:false, tip:"Regular. kill→killed→killed."},
+  {n:92, es:"permanecer (formal)",    base:"remain",       past:"remained",      pp:"remained",        ir:false, tip:"Regular. remain→remained→remained."},
+  {n:93, es:"sugerir",                base:"suggest",      past:"suggested",     pp:"suggested",       ir:false, tip:"Regular. suggest→suggested→suggested."},
+  {n:94, es:"elevar / levantar",      base:"raise",        past:"raised",        pp:"raised",          ir:false, tip:"Regular. raise→raised→raised. 'Rise' (subir solo) es irregular: rise→rose→risen."},
+  {n:95, es:"pasar / aprobar",        base:"pass",         past:"passed",        pp:"passed",          ir:false, tip:"Regular. pass→passed→passed."},
+  {n:96, es:"vender",                 base:"sell",         past:"sold",          pp:"sold",            ir:true,  tip:"sell→sold→sold. Similar: tell→told."},
+  {n:97, es:"exigir / necesitar",     base:"require",      past:"required",      pp:"required",        ir:false, tip:"Regular. require→required→required."},
+  {n:98, es:"informar / comunicar",   base:"report",       past:"reported",      pp:"reported",        ir:false, tip:"Regular. report→reported→reported."},
+  {n:99, es:"decidir",                base:"decide",       past:"decided",       pp:"decided",         ir:false, tip:"Regular. decide→decided→decided."},
+  {n:100,es:"tirar / extraer",        base:"pull",         past:"pulled",        pp:"pulled",          ir:false, tip:"Regular. pull→pulled→pulled."},
+  {n:101,es:"estar de acuerdo",       base:"agree",        past:"agreed",        pp:"agreed",          ir:false, tip:"Regular. agree→agreed→agreed."},
+  {n:102,es:"responder",              base:"answer",       past:"answered",      pp:"answered",        ir:false, tip:"Regular. answer→answered→answered."},
+  {n:103,es:"llegar",                 base:"arrive",       past:"arrived",       pp:"arrived",         ir:false, tip:"Regular. arrive→arrived→arrived."},
+  {n:104,es:"pedir",                  base:"ask for",      past:"asked for",     pp:"asked for",       ir:false, tip:"Phrasal verb regular. ask for→asked for→asked for."},
+  {n:105,es:"pedir prestado",         base:"borrow",       past:"borrowed",      pp:"borrowed",        ir:false, tip:"Regular. borrow→borrowed→borrowed. 'Borrow' ≠ 'lend': borrow = recibir, lend = dar."},
+  {n:106,es:"romper",                 base:"break",        past:"broke",         pp:"broken",          ir:true,  tip:"break→broke→broken. Similar: speak→spoke→spoken."},
+  {n:107,es:"elegir",                 base:"choose",       past:"chose",         pp:"chosen",          ir:true,  tip:"choose→chose→chosen. 'Chose' se pronuncia 'choze'."},
+  {n:108,es:"limpiar",                base:"clean",        past:"cleaned",       pp:"cleaned",         ir:false, tip:"Regular. clean→cleaned→cleaned."},
+  {n:109,es:"cerrar",                 base:"close",        past:"closed",        pp:"closed",          ir:false, tip:"Regular. close→closed→closed."},
+  {n:110,es:"quejarse",               base:"complain",     past:"complained",    pp:"complained",      ir:false, tip:"Regular. complain→complained→complained."},
+  {n:111,es:"cocinar",                base:"cook",         past:"cooked",        pp:"cooked",          ir:false, tip:"Regular. cook→cooked→cooked."},
+  {n:112,es:"copiar",                 base:"copy",         past:"copied",        pp:"copied",          ir:false, tip:"y→i: copy→copied→copied."},
+  {n:113,es:"llorar",                 base:"cry",          past:"cried",         pp:"cried",           ir:false, tip:"y→i: cry→cried→cried."},
+  {n:114,es:"bailar",                 base:"dance",        past:"danced",        pp:"danced",          ir:false, tip:"Regular. dance→danced→danced."},
+  {n:115,es:"entregar",               base:"deliver",      past:"delivered",     pp:"delivered",       ir:false, tip:"Regular. deliver→delivered→delivered."},
+  {n:116,es:"describir",              base:"describe",     past:"described",     pp:"described",       ir:false, tip:"Regular. describe→described→described."},
+  {n:117,es:"conducir",               base:"drive",        past:"drove",         pp:"driven",          ir:true,  tip:"drive→drove→driven. Similar: ride→rode→ridden, write→wrote→written."},
+  {n:118,es:"explicar",               base:"explain",      past:"explained",     pp:"explained",       ir:false, tip:"Regular. explain→explained→explained."},
+  {n:119,es:"terminar",               base:"finish",       past:"finished",      pp:"finished",        ir:false, tip:"Regular. finish→finished→finished."},
+  {n:120,es:"arreglar",               base:"fix",          past:"fixed",         pp:"fixed",           ir:false, tip:"Regular. fix→fixed→fixed."},
+  {n:121,es:"olvidar",                base:"forget",       past:"forgot",        pp:"forgotten",       ir:true,  tip:"forget→forgot→forgotten. ¡Atención! El participle añade -ten."},
+  {n:122,es:"perdonar",               base:"forgive",      past:"forgave",       pp:"forgiven",        ir:true,  tip:"forgive→forgave→forgiven. Mismo patrón: give→gave→given."},
+  {n:123,es:"adivinar",               base:"guess",        past:"guessed",       pp:"guessed",         ir:false, tip:"Regular. guess→guessed→guessed."},
+  {n:124,es:"odiar",                  base:"hate",         past:"hated",         pp:"hated",           ir:false, tip:"Regular. hate→hated→hated."},
+  {n:125,es:"esperar con esperanza",  base:"hope",         past:"hoped",         pp:"hoped",           ir:false, tip:"Regular. hope→hoped→hoped."},
+  {n:126,es:"imaginar",               base:"imagine",      past:"imagined",      pp:"imagined",        ir:false, tip:"Regular. imagine→imagined→imagined."},
+  {n:127,es:"invitar",                base:"invite",       past:"invited",       pp:"invited",         ir:false, tip:"Regular. invite→invited→invited."},
+  {n:128,es:"unirse",                 base:"join",         past:"joined",        pp:"joined",          ir:false, tip:"Regular. join→joined→joined."},
+  {n:129,es:"saltar",                 base:"jump",         past:"jumped",        pp:"jumped",          ir:false, tip:"Regular. jump→jumped→jumped."},
+  {n:130,es:"reír",                   base:"laugh",        past:"laughed",       pp:"laughed",         ir:false, tip:"Regular. laugh→laughed→laughed."},
+  {n:131,es:"prestar",                base:"lend",         past:"lent",          pp:"lent",            ir:true,  tip:"lend→lent→lent. Opuesto de 'borrow'."},
+  {n:132,es:"escuchar (atento)",      base:"listen",       past:"listened",      pp:"listened",        ir:false, tip:"Regular. listen→listened→listened. Siempre 'listen TO'."},
+  {n:133,es:"extrañar / perder",      base:"miss",         past:"missed",        pp:"missed",          ir:false, tip:"Regular. miss→missed→missed."},
+  {n:134,es:"planear",                base:"plan",         past:"planned",       pp:"planned",         ir:false, tip:"Dobla la n: plan→planned→planned. Regla CVC."},
+  {n:135,es:"practicar",              base:"practice",     past:"practiced",     pp:"practiced",       ir:false, tip:"Regular. practice→practiced→practiced."},
+  {n:136,es:"preferir",               base:"prefer",       past:"preferred",     pp:"preferred",       ir:false, tip:"Dobla la r: prefer→preferred→preferred. Regla CVC."},
+  {n:137,es:"preparar",               base:"prepare",      past:"prepared",      pp:"prepared",        ir:false, tip:"Regular. prepare→prepared→prepared."},
+  {n:138,es:"prometer",               base:"promise",      past:"promised",      pp:"promised",        ir:false, tip:"Regular. promise→promised→promised."},
+  {n:139,es:"responder (mensaje)",    base:"reply",        past:"replied",       pp:"replied",         ir:false, tip:"y→i: reply→replied→replied."},
+  {n:140,es:"descansar",              base:"rest",         past:"rested",        pp:"rested",          ir:false, tip:"Regular. rest→rested→rested."},
+  {n:141,es:"regresar / devolver",    base:"return",       past:"returned",      pp:"returned",        ir:false, tip:"Regular. return→returned→returned."},
+  {n:142,es:"ahorrar / guardar",      base:"save",         past:"saved",         pp:"saved",           ir:false, tip:"Regular. save→saved→saved."},
+  {n:143,es:"buscar (internet)",      base:"search",       past:"searched",      pp:"searched",        ir:false, tip:"Regular. search→searched→searched."},
+  {n:144,es:"compartir",              base:"share",        past:"shared",        pp:"shared",          ir:false, tip:"Regular. share→shared→shared."},
+  {n:145,es:"gritar",                 base:"shout",        past:"shouted",       pp:"shouted",         ir:false, tip:"Regular. shout→shouted→shouted."},
+  {n:146,es:"dormir",                 base:"sleep",        past:"slept",         pp:"slept",           ir:true,  tip:"sleep→slept→slept. Mismo patrón: keep→kept, feel→felt."},
+  {n:147,es:"sonreír",                base:"smile",        past:"smiled",        pp:"smiled",          ir:false, tip:"Regular. smile→smiled→smiled."},
+  {n:148,es:"estudiar",               base:"study",        past:"studied",       pp:"studied",         ir:false, tip:"y→i: study→studied→studied."},
+  {n:149,es:"enseñar",                base:"teach",        past:"taught",        pp:"taught",          ir:true,  tip:"teach→taught→taught. Similar: catch→caught."},
+  {n:150,es:"agradecer",              base:"thank",        past:"thanked",       pp:"thanked",         ir:false, tip:"Regular. thank→thanked→thanked."},
+  {n:151,es:"viajar",                 base:"travel",       past:"traveled",      pp:"traveled",        ir:false, tip:"Regular. Americano: traveled. Británico: travelled."},
+  {n:152,es:"probarse (ropa)",        base:"try on",       past:"tried on",      pp:"tried on",        ir:false, tip:"Phrasal separable. y→i: try on→tried on→tried on."},
+  {n:153,es:"usar todo / agotar",     base:"use up",       past:"used up",       pp:"used up",         ir:false, tip:"Phrasal regular. use up→used up→used up."},
+  {n:154,es:"visitar",                base:"visit",        past:"visited",       pp:"visited",         ir:false, tip:"Regular. visit→visited→visited."},
+  {n:155,es:"despertarse",            base:"wake up",      past:"woke up",       pp:"woken up",        ir:true,  tip:"Phrasal irregular. wake up→woke up→woken up."},
+  {n:156,es:"lavar",                  base:"wash",         past:"washed",        pp:"washed",          ir:false, tip:"Regular. wash→washed→washed."},
+  {n:157,es:"usar / llevar puesto",   base:"wear",         past:"wore",          pp:"worn",            ir:true,  tip:"wear→wore→worn. Similar: tear→tore→torn, swear→swore→sworn."},
+  {n:158,es:"preocuparse",            base:"worry",        past:"worried",       pp:"worried",         ir:false, tip:"y→i: worry→worried→worried."},
+  {n:159,es:"hacer ejercicio",        base:"work out",     past:"worked out",    pp:"worked out",      ir:false, tip:"Phrasal regular. work out→worked out→worked out."},
+  {n:160,es:"aceptar",                base:"accept",       past:"accepted",      pp:"accepted",        ir:false, tip:"Regular. accept→accepted→accepted."},
+  {n:161,es:"cancelar",               base:"cancel",       past:"canceled",      pp:"canceled",        ir:false, tip:"Regular. cancel→canceled→canceled."},
+  {n:162,es:"revisar",                base:"check",        past:"checked",       pp:"checked",         ir:false, tip:"Regular. check→checked→checked."},
+  {n:163,es:"comparar",               base:"compare",      past:"compared",      pp:"compared",        ir:false, tip:"Regular. compare→compared→compared."},
+  {n:164,es:"decidir (sobre)",        base:"decide on",    past:"decided on",    pp:"decided on",      ir:false, tip:"Phrasal regular. decide on→decided on→decided on."},
+  {n:165,es:"depender",               base:"depend",       past:"depended",      pp:"depended",        ir:false, tip:"Regular. depend→depended→depended. Siempre 'depend ON'."},
+  {n:166,es:"disfrutar",              base:"enjoy",        past:"enjoyed",       pp:"enjoyed",         ir:false, tip:"Regular. enjoy→enjoyed→enjoyed."},
+  {n:167,es:"fallar",                 base:"fail",         past:"failed",        pp:"failed",          ir:false, tip:"Regular. fail→failed→failed."},
+  {n:168,es:"mejorar",                base:"improve",      past:"improved",      pp:"improved",        ir:false, tip:"Regular. improve→improved→improved."},
+  {n:169,es:"aumentar",               base:"increase",     past:"increased",     pp:"increased",       ir:false, tip:"Regular. increase→increased→increased."},
+  {n:170,es:"bajar / reducir",        base:"lower",        past:"lowered",       pp:"lowered",         ir:false, tip:"Regular. lower→lowered→lowered."},
+  {n:171,es:"manejar / lograr",       base:"manage",       past:"managed",       pp:"managed",         ir:false, tip:"Regular. manage→managed→managed."},
+  {n:172,es:"notar",                  base:"notice",       past:"noticed",       pp:"noticed",         ir:false, tip:"Regular. notice→noticed→noticed."},
+  {n:173,es:"ordenar / pedir",        base:"order",        past:"ordered",       pp:"ordered",         ir:false, tip:"Regular. order→ordered→ordered."},
+  {n:174,es:"escoger",                base:"pick",         past:"picked",        pp:"picked",          ir:false, tip:"Regular. pick→picked→picked."},
+  {n:175,es:"prevenir",               base:"prevent",      past:"prevented",     pp:"prevented",       ir:false, tip:"Regular. prevent→prevented→prevented."},
+  {n:176,es:"proteger",               base:"protect",      past:"protected",     pp:"protected",       ir:false, tip:"Regular. protect→protected→protected."},
+  {n:177,es:"darse cuenta",           base:"realize",      past:"realized",      pp:"realized",        ir:false, tip:"Regular. realize→realized→realized."},
+  {n:178,es:"reducir",                base:"reduce",       past:"reduced",       pp:"reduced",         ir:false, tip:"Regular. reduce→reduced→reduced."},
+  {n:179,es:"reemplazar",             base:"replace",      past:"replaced",      pp:"replaced",        ir:false, tip:"Regular. replace→replaced→replaced."},
+  {n:180,es:"resolver",               base:"solve",        past:"solved",        pp:"solved",          ir:false, tip:"Regular. solve→solved→solved."},
+  {n:181,es:"apoyar",                 base:"support",      past:"supported",     pp:"supported",       ir:false, tip:"Regular. support→supported→supported."},
+  {n:182,es:"confiar",                base:"trust",        past:"trusted",       pp:"trusted",         ir:false, tip:"Regular. trust→trusted→trusted."},
+  {n:183,es:"encender",               base:"turn on",      past:"turned on",     pp:"turned on",       ir:false, tip:"Phrasal separable regular. turn on→turned on→turned on."},
+  {n:184,es:"apagar",                 base:"turn off",     past:"turned off",    pp:"turned off",      ir:false, tip:"Phrasal separable regular. turn off→turned off→turned off."},
+  {n:185,es:"actualizar",             base:"update",       past:"updated",       pp:"updated",         ir:false, tip:"Regular. update→updated→updated."},
+  {n:186,es:"advertir",               base:"warn",         past:"warned",        pp:"warned",          ir:false, tip:"Regular. warn→warned→warned."},
+  {n:187,es:"desperdiciar",           base:"waste",        past:"wasted",        pp:"wasted",          ir:false, tip:"Regular. waste→wasted→wasted."},
+  {n:188,es:"dar la bienvenida",      base:"welcome",      past:"welcomed",      pp:"welcomed",        ir:false, tip:"Regular. welcome→welcomed→welcomed."},
+  {n:189,es:"preocuparse por",        base:"worry about",  past:"worried about", pp:"worried about",   ir:false, tip:"Phrasal regular. y→i: worry about→worried about→worried about."},
+  {n:190,es:"invitar a salir (cita)", base:"ask out",      past:"asked out",     pp:"asked out",       ir:false, tip:"Phrasal regular. ask out→asked out→asked out."},
+  {n:191,es:"buscar",                 base:"look for",     past:"looked for",    pp:"looked for",      ir:false, tip:"Phrasal regular. look for→looked for→looked for."},
+  {n:192,es:"descubrir",              base:"find out",     past:"found out",     pp:"found out",       ir:true,  tip:"Phrasal irregular. find out→found out→found out."},
+  {n:193,es:"llevarse bien",          base:"get along",    past:"got along",     pp:"gotten along",    ir:true,  tip:"Phrasal irregular. get along→got along→gotten along."},
+  {n:194,es:"rendirse",               base:"give up",      past:"gave up",       pp:"given up",        ir:true,  tip:"Phrasal irregular. give up→gave up→given up. ¡Never give up!"},
+  {n:195,es:"continuar",              base:"go on",        past:"went on",       pp:"gone on",         ir:true,  tip:"Phrasal irregular. go on→went on→gone on."},
+  {n:196,es:"pasar el rato",          base:"hang out",     past:"hung out",      pp:"hung out",        ir:true,  tip:"Phrasal irregular. hang out→hung out→hung out."},
+  {n:197,es:"cuidar",                 base:"take care",    past:"took care",     pp:"taken care",      ir:true,  tip:"Phrasal irregular. take care→took care→taken care."},
+  {n:198,es:"pensar en",              base:"think about",  past:"thought about", pp:"thought about",   ir:true,  tip:"Phrasal irregular. think about→thought about→thought about."}
 ];
 
 // ═══════════════════════════════════════════════════════
-// STATE
+// HINT TIPS PER STEP
 // ═══════════════════════════════════════════════════════
-let gameVerbs=[], currentIndex=0, currentStep=0;
-let correctCount=0, wrongCount=0, streak=0, bestStreak=0;
-let selectedMode='ordered', wrongVerbs=[], verbAnswered=false;
+const STEP_TIPS = [
+  // PRESENT (base form)
+  [
+    "La forma base (present/infinitive) es la más simple: sin -s, sin -ing, sin -ed.",
+    "Para verbos regulares, la base es igual al diccionario: work, play, stop.",
+    "Para irregulares, la base puede ser muy diferente al pasado: go, be, have.",
+    "Los phrasal verbs incluyen una partícula: look for, turn on, give up.",
+    "Si termina en -e, en past y participle solo añades -d: use→used.",
+  ],
+  // PAST SIMPLE
+  [
+    "Verbos regulares: añade -ED al final. walk→walked, play→played.",
+    "Si termina en consonante-vocal-consonante (CVC), dobla la última: stop→stopped, plan→planned.",
+    "Si termina en -y (precedida de consonante), cambia y→i antes de -ed: try→tried.",
+    "Verbos irregulares comunes: go→went, have→had, do→did, see→saw, come→came.",
+    "Algunos irregulares tienen las 3 formas iguales: put→put, cut→cut, let→let.",
+    "Patrón -ight/-ought: think→thought, buy→bought, bring→brought.",
+    "Patrón vocálico i→a: begin→began, sing→sang, swim→swam.",
+    "Patrón ee→e: feel→felt, keep→kept, sleep→slept, meet→met.",
+  ],
+  // PAST PARTICIPLE
+  [
+    "Verbos regulares: el participle es IGUAL al past simple. walked, played, stopped.",
+    "Muchos irregulares terminan en -en en el participle: go→gone, take→taken, give→given, write→written.",
+    "Patrón con -n al final: know→known, grow→grown, fall→fallen, speak→spoken.",
+    "Algunos irregulares tienen pasado y participle IGUALES: have→had/had, find→found/found.",
+    "Usa el participle con 'have': I have seen, She has gone, They have finished.",
+    "Patrón -ight/-ought: el participle es igual al pasado: thought, bought, brought.",
+    "Algunos tienen 3 formas distintas: go→went→gone, write→wrote→written, fall→fell→fallen.",
+  ]
+];
+
+// ═══════════════════════════════════════════════════════
+// GAME STATE
+// ═══════════════════════════════════════════════════════
+let gameVerbs=[],currentIndex=0,currentStep=0;
+let correctCount=0,wrongCount=0,streak=0,bestStreak=0;
+let selectedMode='ordered',wrongVerbs=[],verbAnswered=false;
 let stepResults=[null,null,null];
+let hintUsed=false;
 
 // ─── Mode selector ───
 function selectMode(btn){
@@ -417,57 +449,47 @@ function selectMode(btn){
 }
 
 function buildVerbList(mode){
-  let pool=[...ALL_VERBS];
-  if(mode==='ordered') return pool; // already in order
-  if(mode==='irregular') pool=pool.filter(v=>v.ir);
-  if(mode==='regular')   pool=pool.filter(v=>!v.ir);
-  if(mode==='custom25')  return pool.sort(()=>Math.random()-.5).slice(0,25);
-  if(mode==='custom50')  return pool.sort(()=>Math.random()-.5).slice(0,50);
-  return pool.sort(()=>Math.random()-.5);
+  let p=[...ALL_VERBS];
+  if(mode==='ordered') return p;
+  if(mode==='irregular') p=p.filter(v=>v.ir);
+  if(mode==='regular')   p=p.filter(v=>!v.ir);
+  if(mode==='custom25')  return p.sort(()=>Math.random()-.5).slice(0,25);
+  if(mode==='custom50')  return p.sort(()=>Math.random()-.5).slice(0,50);
+  return p.sort(()=>Math.random()-.5);
 }
 
 function startGame(){
   gameVerbs=buildVerbList(selectedMode);
-  wrongVerbs=[];
-  currentIndex=0; correctCount=0; wrongCount=0; streak=0; bestStreak=0;
+  wrongVerbs=[];currentIndex=0;correctCount=0;wrongCount=0;streak=0;bestStreak=0;
   document.getElementById('totalNum').textContent=gameVerbs.length;
   showScreen('quizScreen');
   loadVerb();
 }
-
 function practiceWrong(){
-  if(wrongVerbs.length===0){ goHome(); return; }
+  if(wrongVerbs.length===0){goHome();return;}
   gameVerbs=[...wrongVerbs].sort(()=>Math.random()-.5);
-  wrongVerbs=[];
-  currentIndex=0; correctCount=0; wrongCount=0; streak=0; bestStreak=0;
+  wrongVerbs=[];currentIndex=0;correctCount=0;wrongCount=0;streak=0;bestStreak=0;
   document.getElementById('totalNum').textContent=gameVerbs.length;
   showScreen('quizScreen');
   loadVerb();
 }
-
-function restartSame(){ startGame(); }
-
-function goHome(){ showScreen('startScreen'); }
-
+function restartSame(){startGame();}
+function goHome(){showScreen('startScreen');}
 function confirmHome(){
-  if(verbAnswered || currentIndex===0){
-    goHome(); return;
-  }
-  if(confirm('¿Seguro que quieres salir? Perderás tu progreso actual.')){
-    goHome();
-  }
+  if(verbAnswered||currentIndex===0){goHome();return;}
+  if(confirm('¿Seguro que quieres salir? Perderás tu progreso actual.')){goHome();}
 }
 
 // ─── Load verb ───
 function loadVerb(){
-  if(currentIndex>=gameVerbs.length){ showEndScreen(); return; }
+  if(currentIndex>=gameVerbs.length){showEndScreen();return;}
   const v=gameVerbs[currentIndex];
-  verbAnswered=false; currentStep=0; stepResults=[null,null,null];
+  verbAnswered=false;currentStep=0;stepResults=[null,null,null];hintUsed=false;
+  closeHint();
 
   document.getElementById('verbSpanish').textContent=v.es;
   document.getElementById('verbNumber').textContent='#'+String(v.n).padStart(3,'0');
   document.getElementById('currentNum').textContent=currentIndex+1;
-
   const pct=Math.round((currentIndex/gameVerbs.length)*100);
   document.getElementById('progressPct').textContent=pct+'%';
   document.getElementById('progressBar').style.width=pct+'%';
@@ -475,16 +497,22 @@ function loadVerb(){
   for(let i=0;i<3;i++){
     const inp=document.getElementById('input'+i);
     const tag=document.getElementById('tag'+i);
+    const err=document.getElementById('err'+i);
     const st=document.getElementById('status'+i);
-    inp.value=''; inp.disabled=i!==0;
+    inp.value='';inp.disabled=i!==0;
     inp.className='verb-input';
     tag.className='input-tag'+(i===0?' active':'');
+    err.className='step-error';err.innerHTML='';
     st.textContent='';
   }
 
   document.getElementById('hintBox').className='hint-box';
   document.getElementById('nextBtn').style.display='none';
   document.getElementById('mainCard').className='card';
+  document.getElementById('hintBtn').disabled=false;
+  // reset hint popup
+  document.getElementById('hintAnswer').textContent='';
+  document.getElementById('hintAnswer').className='hint-answer';
 
   document.getElementById('scoreCorrect').textContent=correctCount;
   document.getElementById('scoreWrong').textContent=wrongCount;
@@ -496,18 +524,16 @@ function loadVerb(){
     document.getElementById('input'+i).onkeydown=(e)=>{
       if(e.key==='Enter'){
         e.preventDefault();
-        if(e.shiftKey){ skipVerb(); return; }
-        if(verbAnswered){ nextVerb(); return; }
+        if(e.shiftKey){skipVerb();return;}
+        if(verbAnswered){nextVerb();return;}
         handleEnter(i);
       }
     };
   }
 }
 
-// ─── Normalize ───
-function normalize(s){
-  return s.trim().toLowerCase().replace(/\s+/g,' ').replace(/[''']/g,"'");
-}
+// ─── Normalize & check ───
+function normalize(s){return s.trim().toLowerCase().replace(/\s+/g,' ').replace(/[''']/g,"'");}
 function checkAnswer(userInput,correct){
   const u=normalize(userInput);
   return correct.split('/').map(a=>normalize(a.trim())).some(a=>u===a);
@@ -515,11 +541,12 @@ function checkAnswer(userInput,correct){
 
 // ─── Handle step answer ───
 function handleEnter(stepIndex){
-  if(stepIndex!==currentStep) return;
+  if(stepIndex!==currentStep)return;
   const v=gameVerbs[currentIndex];
   const inp=document.getElementById('input'+stepIndex);
   const st=document.getElementById('status'+stepIndex);
   const tag=document.getElementById('tag'+stepIndex);
+  const err=document.getElementById('err'+stepIndex);
   const correctForms=[v.base,v.past,v.pp];
   const ok=checkAnswer(inp.value,correctForms[stepIndex]);
 
@@ -527,18 +554,33 @@ function handleEnter(stepIndex){
   tag.classList.remove('active');
 
   if(ok){
-    inp.classList.add('input-correct'); st.textContent='✓'; stepResults[stepIndex]=true;
+    inp.classList.add('input-correct');
+    st.textContent='✓';
+    stepResults[stepIndex]=true;
   } else {
-    inp.classList.add('input-wrong'); st.textContent='✗'; stepResults[stepIndex]=false;
+    inp.classList.add('input-wrong');
+    st.textContent='✗';
+    stepResults[stepIndex]=false;
     inp.classList.add('shake-anim');
     setTimeout(()=>inp.classList.remove('shake-anim'),400);
+
+    // ── Show per-step mini error ──
+    const stepNames=['Present','Past simple','Past participle'];
+    const displayCorrect=correctForms[stepIndex].split('/').join(' / ');
+    err.innerHTML=`✗ ${stepNames[stepIndex]} correcto: <span class="correct-word">${displayCorrect}</span>`;
+    err.className='step-error show';
   }
+
+  closeHint();
 
   if(stepIndex<2){
     currentStep++;
     const nxt=document.getElementById('input'+currentStep);
     nxt.disabled=false;
     document.getElementById('tag'+currentStep).classList.add('active');
+    // update hint popup for new step
+    document.getElementById('hintAnswer').textContent='';
+    document.getElementById('hintAnswer').className='hint-answer';
     setTimeout(()=>nxt.focus(),60);
   } else {
     finalizeVerb();
@@ -554,28 +596,29 @@ function finalizeVerb(){
   const hintBox=document.getElementById('hintBox');
 
   if(allOk){
-    correctCount++; streak++;
-    if(streak>bestStreak) bestStreak=streak;
+    correctCount++;streak++;
+    if(streak>bestStreak)bestStreak=streak;
     card.classList.add('correct-card');
     hintBox.className='hint-box success-hint show';
     document.getElementById('hintTitle').textContent='¡Perfecto! 🎉';
     document.getElementById('hintText').textContent=v.tip;
     document.getElementById('correctForms').innerHTML='';
-    if(streak>=5) launchConfetti();
+    if(streak>=5)launchConfetti();
   } else {
-    wrongCount++; streak=0;
+    wrongCount++;streak=0;
     card.classList.add('wrong-card');
     hintBox.className='hint-box error-hint show';
-    document.getElementById('hintTitle').textContent='¡Revisa! Las formas correctas son:';
+    document.getElementById('hintTitle').textContent='Formas correctas:';
     document.getElementById('hintText').textContent='💡 '+v.tip;
     document.getElementById('correctForms').innerHTML=`
       <span class="form-tag">Present: ${v.base}</span>
       <span class="form-tag">Past: ${v.past}</span>
       <span class="form-tag">Participle: ${v.pp}</span>
     `;
-    if(!wrongVerbs.find(w=>w.n===v.n)) wrongVerbs.push(v);
+    if(!wrongVerbs.find(w=>w.n===v.n))wrongVerbs.push(v);
   }
 
+  document.getElementById('hintBtn').disabled=true;
   document.getElementById('scoreCorrect').textContent=correctCount;
   document.getElementById('scoreWrong').textContent=wrongCount;
   document.getElementById('scoreStreak').textContent=streak;
@@ -585,13 +628,14 @@ function finalizeVerb(){
 
 // ─── Skip ───
 function skipVerb(){
-  if(verbAnswered){ nextVerb(); return; }
+  if(verbAnswered){nextVerb();return;}
   const v=gameVerbs[currentIndex];
-  verbAnswered=true; wrongCount++; streak=0;
+  verbAnswered=true;wrongCount++;streak=0;
   for(let i=currentStep;i<3;i++){
     document.getElementById('input'+i).disabled=true;
     document.getElementById('tag'+i).classList.remove('active');
   }
+  closeHint();
   const card=document.getElementById('mainCard');
   card.classList.add('wrong-card');
   const hintBox=document.getElementById('hintBox');
@@ -603,7 +647,8 @@ function skipVerb(){
     <span class="form-tag">Past: ${v.past}</span>
     <span class="form-tag">Participle: ${v.pp}</span>
   `;
-  if(!wrongVerbs.find(w=>w.n===v.n)) wrongVerbs.push(v);
+  if(!wrongVerbs.find(w=>w.n===v.n))wrongVerbs.push(v);
+  document.getElementById('hintBtn').disabled=true;
   document.getElementById('scoreWrong').textContent=wrongCount;
   document.getElementById('scoreStreak').textContent=streak;
   document.getElementById('nextBtn').style.display='flex';
@@ -611,28 +656,69 @@ function skipVerb(){
 }
 
 // ─── Next ───
-function nextVerb(){ currentIndex++; loadVerb(); }
+function nextVerb(){currentIndex++;loadVerb();}
+
+// ─── HINT POPUP ───
+function toggleHint(){
+  const popup=document.getElementById('hintPopup');
+  if(popup.classList.contains('show')){closeHint();return;}
+
+  // Pick a random tip for the current step
+  const tips=STEP_TIPS[currentStep];
+  const tip=tips[Math.floor(Math.random()*tips.length)];
+  const stepNames=['la forma base (present)','el past simple','el past participle'];
+  document.getElementById('hintPopupBody').textContent=
+    '📌 Para escribir '+stepNames[currentStep]+': '+tip;
+
+  // Reset reveal
+  document.getElementById('hintAnswer').textContent='';
+  document.getElementById('hintAnswer').className='hint-answer';
+  document.getElementById('hintRevealBtn').style.display='inline-flex';
+
+  popup.classList.add('show');
+}
+
+function closeHint(){
+  document.getElementById('hintPopup').classList.remove('show');
+}
+
+function revealAnswer(){
+  const v=gameVerbs[currentIndex];
+  const forms=[v.base, v.past, v.pp];
+  const ans=document.getElementById('hintAnswer');
+  ans.textContent=forms[currentStep].split('/').join(' / ');
+  ans.className='hint-answer visible';
+  document.getElementById('hintRevealBtn').style.display='none';
+  // Mark as used (counts as wrong for this step)
+  hintUsed=true;
+}
+
+// Close hint if clicking outside
+document.addEventListener('click',function(e){
+  const popup=document.getElementById('hintPopup');
+  const btn=document.getElementById('hintBtn');
+  if(popup.classList.contains('show') && !popup.contains(e.target) && !btn.contains(e.target)){
+    closeHint();
+  }
+});
 
 // ─── End screen ───
 function showEndScreen(){
   const total=correctCount+wrongCount;
   const pct=total>0?Math.round((correctCount/total)*100):0;
-
   document.getElementById('finalPct').textContent=pct+'%';
   document.getElementById('endCorrect').textContent=correctCount;
   document.getElementById('endWrong').textContent=wrongCount;
   document.getElementById('endStreak').textContent=bestStreak;
-
   let grade,msg;
-  if(pct>=95){grade='⭐ Perfecto';msg='¡Increíble! Dominas estos verbos completamente.';}
+  if(pct>=95){grade='⭐ Perfecto';msg='¡Increíble! Dominas completamente estos verbos.';}
   else if(pct>=85){grade='🥇 Excelente';msg='¡Muy bien! Estás dominando los verbos ingleses.';}
   else if(pct>=70){grade='🥈 Muy bien';msg='Buen trabajo. Repasa un poco los que fallaste.';}
-  else if(pct>=55){grade='🥉 Bien';msg='¡Vas bien! Practica los verbos incorrectos para mejorar.';}
+  else if(pct>=55){grade='🥉 Bien';msg='¡Vas bien! Practica los incorrectos para mejorar.';}
   else{grade='📚 Sigue practicando';msg='¡No te rindas! La práctica constante es la clave.';}
-
   document.getElementById('endGrade').textContent=grade;
   document.getElementById('endMessage').textContent=msg;
-  if(pct>=85) launchConfetti(50);
+  if(pct>=85)launchConfetti(50);
   showScreen('endScreen');
 }
 
@@ -645,18 +731,12 @@ function showScreen(id){
 // ─── Confetti ───
 function launchConfetti(count=30){
   const c=document.getElementById('confettiContainer');
-  const colors=['#4f46e5','#f97316','#16a34a','#dc2626','#7c3aed','#d97706','#0d9488'];
+  const cols=['#4f46e5','#f97316','#16a34a','#dc2626','#7c3aed','#d97706','#0d9488'];
   for(let i=0;i<count;i++){
     setTimeout(()=>{
       const p=document.createElement('div');
       p.className='confetti-particle';
-      p.style.cssText=`
-        left:${Math.random()*100}%;top:-10px;
-        background:${colors[Math.floor(Math.random()*colors.length)]};
-        animation-duration:${1.5+Math.random()*2}s;
-        animation-delay:${Math.random()*.5}s;
-        width:${6+Math.random()*7}px;height:${6+Math.random()*7}px;
-      `;
+      p.style.cssText=`left:${Math.random()*100}%;top:-10px;background:${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.5}s;width:${6+Math.random()*7}px;height:${6+Math.random()*7}px;`;
       c.appendChild(p);
       setTimeout(()=>p.remove(),4000);
     },i*30);
